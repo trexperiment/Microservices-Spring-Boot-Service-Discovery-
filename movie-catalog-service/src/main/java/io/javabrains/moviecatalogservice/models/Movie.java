@@ -1,36 +1,32 @@
 package io.javabrains.moviecatalogservice.models;
 
-public class Rating {
+public class Movie{
 	
 	private String movieId;
-	private int rating;
+	private String name;
 	
-	public Rating() {
+	
+	public  Movie() {
 		
 	}
-	
-	public Rating(String movieId, int rating) {
+	public Movie(String movieId, String name) {
 		super();
 		this.movieId = movieId;
-		this.rating = rating;
+		this.name = name;
 	}
-
+	
 	public String getMovieId() {
 		return movieId;
 	}
-
 	public void setMovieId(String movieId) {
 		this.movieId = movieId;
 	}
-
-	public int getRating() {
-		return rating;
+	public String getName() {
+		return name;
 	}
-
-	public void setRating(int rating) {
-		this.rating = rating;
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 	
-
 }
