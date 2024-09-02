@@ -4,6 +4,7 @@ package io.javabrains.moviecatalogservice.resources;
 import io.javabrains.moviecatalogservice.models.CatalogItem;
 import io.javabrains.moviecatalogservice.models.Movie;
 import io.javabrains.moviecatalogservice.models.Rating;
+import io.javabrains.moviecatalogservice.models.UserRating;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -36,8 +37,17 @@ public class MovieCatalogueResource {
 		//Webclients
 		//WebClient.Builder builder = WebClient.builder();
 		
+		UserRating ratings = restTemplate.getForObject("http://localhost:8083/ratingsdata/users/"+userId, UserRating.class);
+		System.out.println("ratings: " + ratings.getUserRating());
+		return ratings.getUserRating().stream().map(rating -> {
+			Movie movie = restTemplate.getForObject("http://localhost:8082/movie/" + rating.getMovieId(), Movie.class);
+			System.out.println("movie: " + movie.getMovieId());
+			return new CatalogItem(movie.getName(), "Desc", rating.getRating());
+		})
+		.collect(Collectors.toList());
+		
 		//get all rated movie IDs
-		List<Rating> ratings =Arrays.asList(
+		/*List<Rating> ratings =Arrays.asList(
 				new Rating("1234",4),
 				new Rating("5678", 5)
 		); 
@@ -58,6 +68,7 @@ public class MovieCatalogueResource {
 		})
 		.collect(Collectors.toList());
 		// for each movie ID, CALL MVIE INFOR SERVICE AND GET DETAILS 
+		*/
 		
 		//Put them all together
 		 /*return Collections.singletonList(
