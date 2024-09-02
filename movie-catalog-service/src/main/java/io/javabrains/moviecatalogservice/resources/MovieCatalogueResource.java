@@ -31,10 +31,11 @@ public class MovieCatalogueResource {
 				new Rating("5678", 5)
 		); 
 		
-		return ratings.stream().map(rating -> {
+		return ratings.stream()
+		.map(rating -> {
 		//new CatalogItem("Transforms","Test",4))
 		Movie movie = restTemplate.getForObject("http://localhost:8082/movie/"+rating.getMovieId(), Movie.class);
-		new CatalogItem(movie.getName(),"Test",rating.getRating());
+		return new CatalogItem(movie.getName(),"Test",rating.getRating());
 		})
 		.collect(Collectors.toList());
 		// for each movie ID, CALL MVIE INFOR SERVICE AND GET DETAILS 
