@@ -37,10 +37,10 @@ public class MovieCatalogueResource {
 		//Webclients
 		//WebClient.Builder builder = WebClient.builder();
 		
-		UserRating ratings = restTemplate.getForObject("http://localhost:8083/ratingsdata/users/"+userId, UserRating.class);
+		UserRating ratings = restTemplate.getForObject("http://ratings-data-service/ratingsdata/users/"+userId, UserRating.class);
 		System.out.println("ratings: " + ratings.getUserRating());
 		return ratings.getUserRating().stream().map(rating -> {
-			Movie movie = restTemplate.getForObject("http://localhost:8082/movie/" + rating.getMovieId(), Movie.class);
+			Movie movie = restTemplate.getForObject("http://movie-info-service/movie/" + rating.getMovieId(), Movie.class);
 			System.out.println("movie: " + movie.getMovieId());
 			return new CatalogItem(movie.getName(), "Desc", rating.getRating());
 		})
